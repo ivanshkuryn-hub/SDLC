@@ -1,0 +1,13 @@
+# Исключения для C++ Builder
+__history/
+__recovery/
+Win32/
+Win64/
+*.exe
+*.obj
+*.tds
+*.local
+*.identcache
+*.stat
+*.dsk
+*.~*
