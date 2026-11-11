@@ -3,7 +3,7 @@ object InputForm: TInputForm
   Top = 0
   Caption = 'InputForm'
   ClientHeight = 231
-  ClientWidth = 505
+  ClientWidth = 170
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -16,14 +16,14 @@ object InputForm: TInputForm
   object Label1: TLabel
     Left = 24
     Top = 24
-    Width = 121
+    Width = 40
     Height = 13
     Caption = #1042#1086#1079#1088#1072#1089#1090
   end
   object Label2: TLabel
     Left = 24
     Top = 112
-    Width = 121
+    Width = 76
     Height = 13
     Caption = #1055#1091#1083#1100#1089' '#1074' '#1087#1086#1082#1086#1077':'
   end

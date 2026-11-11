@@ -20,7 +20,7 @@ void __fastcall TInputForm::btnOkClick(TObject *Sender)
         int age = StrToInt(edtAge->Text);
         int pulse = StrToInt(edtPulse->Text);
 
-        // Валидация (Защита от дурака)
+
         if (age < 10 || age > 100) {
             ShowMessage("Ошибка! Возраст должен быть от 10 до 100 лет.");
             return;
@@ -30,7 +30,7 @@ void __fastcall TInputForm::btnOkClick(TObject *Sender)
             return;
         }
 
-        // Если всё ок, закрываем форму
+
         ModalResult = mrOk;
     }
     catch (...) {

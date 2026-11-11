@@ -1,4 +1,4 @@
-//---------------------------------------------------------------------------
+
 
 #include <vcl.h>
 #include "InputUnit.h"
@@ -17,12 +17,12 @@ __fastcall TMainForm::TMainForm(TComponent* Owner)
 //---------------------------------------------------------------------------
 void __fastcall TMainForm::btnInputClick(TObject *Sender)
 {
-    // Создаем форму ввода
+
     TInputForm *inputForm = new TInputForm(this);
 
-    // Показываем её. Если нажали "ОК" (mrOk)...
+
     if (inputForm->ShowModal() == mrOk) {
-        // Забираем данные
+
         int age = StrToInt(inputForm->edtAge->Text);
         int restPulse = StrToInt(inputForm->edtPulse->Text);
 
@@ -32,10 +32,10 @@ void __fastcall TMainForm::btnInputClick(TObject *Sender)
         // Зона сжигания жира (65%)
         int targetPulse = ((maxPulse - restPulse) * 0.65) + restPulse;
 
-        // Выводим результат на главную форму
+
         lblResult->Caption = "Пульс для сжигания жира: " + IntToStr(targetPulse) + " уд/мин";
     }
 
-	delete inputForm; // Очищаем память
+	delete inputForm;
 }
 //---------------------------------------------------------------------------
