@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>1899.12.30 00:00:00.000.362,D:\Github\SDLC\src\Unit1.cpp=D:\Github\SDLC\src\InputUnit.cpp</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.863,C:\Users\Ivan\Documents\Embarcadero\Studio\Projects\Project1.cbproj=D:\Github\SDLC\src\IdealWeightProject.cbproj</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.922,=C:\Users\Ivan\Documents\Embarcadero\Studio\Projects\Unit1.cpp</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.085,C:\Users\Ivan\Documents\Embarcadero\Studio\Projects\Unit1.cpp=D:\Github\SDLC\src\MainUnit.cpp</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.085,C:\Users\Ivan\Documents\Embarcadero\Studio\Projects\Unit1.h=D:\Github\SDLC\src\MainUnit.h</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.338,=D:\Github\SDLC\src\Unit1.cpp</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.362,D:\Github\SDLC\src\Unit1.h=D:\Github\SDLC\src\InputUnit.h</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.858,=C:\Users\Ivan\Documents\Embarcadero\Studio\Projects\Project1PCH1.h</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.021,C:\Users\Ivan\Documents\Embarcadero\Studio\Projects\Project1PCH1.h=D:\Github\SDLC\src\IdealWeight.h</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.362,D:\Github\SDLC\src\Unit1.dfm=D:\Github\SDLC\src\InputUnit.dfm</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.085,C:\Users\Ivan\Documents\Embarcadero\Studio\Projects\Unit1.dfm=D:\Github\SDLC\src\MainUnit.dfm</Transaction>
+  </Transactions>
+</BorlandProject>
