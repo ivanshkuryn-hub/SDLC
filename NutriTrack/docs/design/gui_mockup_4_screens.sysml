@@ -11,41 +11,44 @@ package NutriTrack_GUI {
     }
 
     part def DashboardScreen {
-        attribute title = "Главная";
+        attribute title = "DashboardScreen";
         item dailyNutritionSummary;
         item calorieProgress;
         item calorieGoalInput;
         item waterProgress;
         item weeklyCaloriesChart;
         item weeklyWaterChart;
+        item weightChart;
+        item weightEntryForm;
         item navigationMenu;
         item themeToggle;
     }
 
     part def FoodDiaryScreen {
-        attribute title = "Дневник питания";
+        attribute title = "FoodDiaryScreen";
+        item diaryDateSelector;
         item foodList;
         item addFoodForm;
         item deleteFoodAction;
         item dailyNutritionTotals;
+        item pdfExportControl;
     }
 
     part def ScannerScreen {
-        attribute title = "Сканер";
+        attribute title = "ScannerScreen";
         item uploadPhotoControl;
         item barcodeResult;
         item productInfoCard;
+        item addToFoodDiaryAction;
     }
 
     part def WaterScreen {
-        attribute title = "Учёт воды";
+        attribute title = "WaterScreen";
         item add250Button;
         item add500Button;
         item manualWaterInput;
         item totalWaterValue;
         item waterGoalInput;
         item waterProgress;
-        item reminderIntervalInput;
-        item reminderNotification;
     }
 }
