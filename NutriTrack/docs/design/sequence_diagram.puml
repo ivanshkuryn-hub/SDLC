@@ -1,0 +1,99 @@
+@startuml
+title Sequence Diagram — Ручное добавление продукта
+
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam defaultFontSize 13
+skinparam sequenceMessageAlign center
+skinparam responseMessageBelowArrow true
+
+autonumber
+
+' ==========================================
+' Участники взаимодействия
+' ==========================================
+
+actor "Пользователь" as User
+boundary "Web Interface" as Browser
+control "FoodDiaryController" as Controller
+control "FoodService" as FoodService
+control "NutritionService" as NutritionService
+participant "MealRepository" as MealRepository
+participant "meals/YYYY-MM-DD.csv" as MealFile
+
+' ==========================================
+' Ввод данных продукта
+' ==========================================
+
+User -> Browser : Открыть форму добавления продукта
+Browser --> User : Отобразить форму
+
+User -> Browser : Ввести название, массу порции
+User -> Browser : Ввести калорийность и БЖУ на 100 г
+User -> Browser : Подтвердить добавление
+
+Browser -> Controller : Передать дату и данные продукта
+activate Controller
+
+Controller -> Controller : Проверить параметры запроса
+
+alt Данные некорректны
+    Controller --> Browser : Вернуть ошибки проверки
+    Browser --> User : Показать сообщение об ошибке
+else Данные корректны
+
+    ' ==========================================
+    ' Проверка и расчёт пищевой ценности
+    ' ==========================================
+
+    Controller -> FoodService : добавить продукт
+    activate FoodService
+
+    FoodService -> FoodService : Проверить допустимость значений
+
+    FoodService -> NutritionService : расчитать КБЖУ на 100 грамм
+    activate NutritionService
+    NutritionService -> NutritionService : Рассчитать КБЖУ для массы порции
+    NutritionService --> FoodService : Вернуть рассчитанные значения
+    deactivate NutritionService
+
+    ' ==========================================
+    ' Сохранение записи в дневнике
+    ' ==========================================
+
+    FoodService -> MealRepository : save(date, mealEntry)
+    activate MealRepository
+    MealRepository -> MealFile : Сохранить запись за выбранную дату
+    MealFile --> MealRepository : Результат записи
+    MealRepository --> FoodService : Результат сохранения
+    deactivate MealRepository
+
+    alt Ошибка сохранения
+        FoodService --> Controller : Вернуть ошибку сохранения
+        Controller --> Browser : Передать сообщение об ошибке
+        Browser --> User : Отобразить сообщение об ошибке
+    else Запись сохранена
+
+        ' ==========================================
+        ' Обновление дневных итогов
+        ' ==========================================
+
+        FoodService -> MealRepository : findByDate(date)
+        activate MealRepository
+        MealRepository -> MealFile : Прочитать записи за дату
+        MealFile --> MealRepository : Записи дневника
+        MealRepository --> FoodService : Список записей
+        deactivate MealRepository
+
+        FoodService -> FoodService : Рассчитать дневные итоги
+        FoodService --> Controller : Запись и обновлённые итоги
+        Controller --> Browser : Вернуть обновлённую страницу дневника
+        Browser --> User : Показать запись и дневные итоги
+
+    end
+
+    deactivate FoodService
+end
+
+deactivate Controller
+@enduml

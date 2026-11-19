@@ -1,0 +1,113 @@
+@startuml
+
+title State Machine Diagram — Состояния NutriTrack
+
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam defaultFontSize 13
+skinparam state {
+    BackgroundColor #F2F2F2
+    BorderColor #555555
+    ArrowColor #555555
+    FontColor #222222
+}
+
+' ==========================================
+' Основные состояния интерфейса
+' ==========================================
+
+[*] --> Dashboard
+
+state "Главная страница" as Dashboard {
+    [*] --> DashboardView
+
+    state "Отображение сводки и графиков" as DashboardView
+    state "Добавление измерения веса" as WeightEntry
+    state "Настройка цели по калориям" as CalorieGoal
+
+    DashboardView --> WeightEntry : добавить измерение веса
+    WeightEntry --> DashboardView : сохранить измерение / обновить график
+
+    DashboardView --> CalorieGoal : изменить цель по калориям
+    CalorieGoal --> DashboardView : сохранить цель / обновить прогресс
+}
+
+state "Дневник питания" as Diary {
+    [*] --> DiaryView
+
+    state "Просмотр записей питания" as DiaryView
+    state "Черновик записи продукта" as EntryDraft
+    state "Проверка данных" as Validation
+    state "Расчёт КБЖУ порции" as Calculation
+    state "Сохранённая запись" as SavedEntry
+    state "Удаление записи" as DeleteEntry
+    state "Экспорт дневника в PDF" as PdfExport
+
+    DiaryView --> EntryDraft : добавить продукт
+    EntryDraft --> Validation : отправить данные
+    Validation --> EntryDraft : данные некорректны / показать ошибку
+    Validation --> Calculation : данные корректны
+    Calculation --> EntryDraft : изменить данные
+    Calculation --> SavedEntry : подтвердить добавление
+    SavedEntry --> DiaryView : запись сохранена / обновить итоги
+
+    DiaryView --> DeleteEntry : удалить выбранную запись
+    DeleteEntry --> DiaryView : подтвердить удаление / пересчитать итоги
+
+    DiaryView --> PdfExport : экспортировать дневник
+    PdfExport --> DiaryView : файл сформирован / ошибка экспорта
+}
+
+' Сканер представлен одним состоянием без детализации распознавания
+state "Экран сканера" as Scanner
+
+state "Учёт воды" as Water {
+    [*] --> WaterView
+
+    state "Просмотр дневного объёма воды" as WaterView
+    state "Быстрое добавление воды" as QuickWater
+    state "Ручной ввод объёма воды" as ManualWater
+    state "Настройка дневной цели по воде" as WaterGoal
+
+    WaterView --> QuickWater : добавить 250 мл или 500 мл
+    QuickWater --> WaterView : сохранить объём / обновить итог
+
+    WaterView --> ManualWater : ручной ввод объёма
+    ManualWater --> WaterView : сохранить объём / обновить итог
+
+    WaterView --> WaterGoal : изменить дневную цель
+    WaterGoal --> WaterView : сохранить цель / обновить прогресс
+}
+
+' ==========================================
+' Переходы между основными экранами
+' ==========================================
+
+Dashboard --> Diary : открыть дневник питания
+Dashboard --> Scanner : открыть сканер
+Dashboard --> Water : открыть учёт воды
+
+Diary --> Dashboard : открыть главную страницу
+Diary --> Scanner : открыть сканер
+
+Scanner --> Diary : добавить найденный продукт
+Scanner --> Diary : перейти к ручному вводу
+Scanner --> Dashboard : вернуться на главную страницу
+
+Water --> Dashboard : открыть главную страницу
+
+Dashboard --> [*] : завершить работу приложения
+
+note right of Scanner
+  Сканер показан как отдельный экран.
+  Внутренние этапы загрузки и распознавания
+  изображения на этой диаграмме не раскрываются.
+end note
+
+note right of Dashboard
+  Общая навигация и переключатель темы
+  доступны на основных экранах.
+  Выбранная тема сохраняется в настройках.
+end note
+
+@enduml
